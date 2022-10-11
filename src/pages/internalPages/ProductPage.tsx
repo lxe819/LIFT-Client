@@ -48,7 +48,9 @@ Set Main Image Display
       .then((response) => response.json())
       .then((data) => {
         console.log(data.item);
-        setSingleProduct(data.item)});
+        setSingleProduct(data.item); 
+        setMainDisplay(data.item?.[0]?.images?.[0])
+      });
 
   }, []);
 
@@ -60,12 +62,6 @@ Retrieve selected value for dropdown (Product Size)
     setSelectValue(e.target.value);
     console.log("Dropdown selected", e.target.value);
   };
-
-
-  //? To guard against undefined data:
-    // if (singleProduct === undefined){
-    //   return null; 
-    // }
 
 
 /* ---------------------------------------------------------------
@@ -181,8 +177,8 @@ Formik to validate product quantity selection
         </div>
         <div className="d-flex flex-column">
           <h1 className="mt-5">{singleProduct?.[0]?.product_name}</h1>
-          <h4>{singleProduct?.[0]?.short_desc}</h4>
-          <h3 className="mb-3">{singleProduct?.[0]?.unit_price}</h3>
+          <h6>{singleProduct?.[0]?.short_desc}</h6>
+          <h3 className="mb-3">S${singleProduct?.[0]?.unit_price}</h3>
 
           <form onSubmit={formik.handleSubmit}>
             {singleProduct?.[0]?.sizing && (
