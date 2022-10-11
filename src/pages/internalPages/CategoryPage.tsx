@@ -17,8 +17,8 @@ function CategoryPage() {
   const [categoryProducts, setCategoryProducts] = useState<Products[]>();
   const { category_id } = useParams();
   const navigate = useNavigate();
-  // console.log(category_id);
-  const url = `http://localhost:5566/products/category/${category_id}`;
+  const SERVER = import.meta.env.VITE_SERVER
+  const url = `${SERVER}/products/category/${category_id}`;
 
   useEffect(() => {
     fetch(url)

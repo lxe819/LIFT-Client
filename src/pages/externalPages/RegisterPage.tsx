@@ -4,7 +4,8 @@ import * as Yup from "yup";
 import YupPassword from "yup-password";
 YupPassword(Yup);
 
-const url = "http://localhost:5566/users/";
+const SERVER = import.meta.env.VITE_SERVER
+const url = `${SERVER}/users/`;
 
 function RegisterPage({ setToken }: { setToken: Function}) {
   const navigate = useNavigate();

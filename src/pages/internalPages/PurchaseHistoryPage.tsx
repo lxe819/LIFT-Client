@@ -13,8 +13,8 @@ interface Purchases {
     purchased_on: Date 
 }
 
-
-const purchasesURL = "http://localhost:5566/purchases/"; 
+const SERVER = import.meta.env.VITE_SERVER
+const purchasesURL = `${SERVER}/purchases/`; 
 function PurchaseHistoryPage({ token }: { token: string }){
 
     const [allPurchases, setAllPurchases] = useState<Purchases[]>([])

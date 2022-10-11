@@ -15,39 +15,7 @@ interface Products {
   sizing: string[];
 }
 
-// interface Products {
-//   product_id: number;
-//   product_name: string;
-//   images: string[];
-//   short_desc: string;
-//   unit_price: string;
-//   stock: number; //! TO DELETE THIS
-//   sizing: string[];
-//   created_on: string;
-//   category_id: number;
-//   stock_qty: { S: number; M: number; L: number } | { freeSize: number };
-// }
-
-
-// interface Stocks {
-//   stock_id: number; 
-//   product_id: number; 
-//   product_size: string | null; 
-//   stock_qty: number; 
-//   created_on: Date; 
-// }
-
-// const styleMD = {
-//   maxWidth: "430px",
-//   maxHeight: "430px",
-//   objectFit: "cover",
-// };
-
-// const styleSmall = {
-//   maxWidth: "100px",
-//   maxHeight: "100px",
-//   objectFit: "cover",
-// };
+const SERVER = import.meta.env.VITE_SERVER
 
 function ProductPage({ token }: { token: string }) {
   const { product_id } = useParams();
@@ -58,9 +26,8 @@ function ProductPage({ token }: { token: string }) {
   const [selectMessage, setSelectMessage] = useState(false);
   // const [stockQty, setStockQty] = useState<Stocks[]>([]); 
   // const [updatedValues, setUpdatedValues] = useState({});
-  const fetchProductURL = `http://localhost:5566/products/product/${product_id}`;
-  const postCartItemURL = `http://localhost:5566/cart`;
-  // const fetchStocksURL = `http://localhost:5566/stocks`
+  const fetchProductURL = `${SERVER}/products/product/${product_id}`;
+  const postCartItemURL = `${SERVER}/cart`;
 
   const userID = parseJwt(token).user_id;
   //   console.log(userID);

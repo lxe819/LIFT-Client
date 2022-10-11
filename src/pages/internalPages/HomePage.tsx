@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const url = "http://localhost:5566/categories";
+const SERVER = import.meta.env.VITE_SERVER
+const url = `${SERVER}/categories`;
 
 interface Categories {
   category_id: number;

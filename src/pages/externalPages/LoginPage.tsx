@@ -2,7 +2,8 @@ import { useFormik } from "formik";
 import { Link, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 
-const url = "http://localhost:5566/login/";
+const SERVER = import.meta.env.VITE_SERVER
+const url = `${SERVER}/login/`;
 function LoginPage({ setToken }: { setToken: Function }) {
     const navigate = useNavigate(); 
 

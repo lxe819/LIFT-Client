@@ -14,21 +14,9 @@ interface CartItem {
   image: string;
 }
 
-// interface ProductsStock {
-//     product_id: number; 
-//     product_name: string; 
-//     stock_qty: { "S": number; "M": number; "L": number } | { "freeSize": number }
-// }
-
-// const styleSmall = {
-//   maxWidth: "60px",
-//   maxHeight: "60px",
-//   objectFit: "cover",
-// };
-
-const cartedURL = "http://localhost:5566/cart/";
-// const productsURL = "http://localhost:5566/products/"; 
-const purchasesURL = "http://localhost:5566/purchases/"; 
+const SERVER = import.meta.env.VITE_SERVER
+const cartedURL = `${SERVER}/cart/`;
+const purchasesURL = `${SERVER}/purchases/`; 
 
 function CartPage({ token, orderHistory, setOrderHistory }: { token: string, orderHistory: CartItem[], setOrderHistory: Function }) {
   const [cartData, setCartData] = useState<CartItem[]>([]);
@@ -51,7 +39,7 @@ UPDATE cart item (onChange QTY)
     console.log("size:", size);
 
     const newQty = e.target.value;
-    fetch(`http://localhost:5566/cart/${cartID}`, {
+    fetch(`${SERVER}/cart/${cartID}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -73,7 +61,7 @@ UPDATE cart item (onChange QTY)
 DELETE cart item 
 --------------------------------------------------------------- */
   const handleDelete = (cartID: number) => {
-    fetch(`http://localhost:5566/cart/${cartID}`, {
+    fetch(`${SERVER}/cart/${cartID}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${token}`,
