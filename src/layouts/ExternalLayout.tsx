@@ -18,7 +18,7 @@ function ExternalLayout() {
         </div>
         {/* <div className="collapse navbar-collapse" id="navbarSupportedContent"> */}
             <div className="d-flex align-items-center">
-                <button onClick={() => navigate("/login")} type="button" className="btn btn-link px-3 me-2">Login</button>
+                <button onClick={() => navigate("/login")} type="button" className="btn btn-light px-3 me-2">Login</button>
                 <button onClick={() => navigate("/register")} type="button" className="btn btn-primary me-3">Sign Up</button>
             </div>
 

@@ -1,6 +1,7 @@
 import { useFormik } from "formik";
 import { Link, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
+import parseJwt from "../../models/parseJwt";
 
 const SERVER = import.meta.env.VITE_SERVER
 const url = `${SERVER}/login/`;
@@ -39,7 +40,12 @@ function LoginPage({ setToken }: { setToken: Function }) {
       } else {
         //   setUsername(data.userid);
           setToken(data.token);
-        navigate("/personal");
+          const isAdmin = parseJwt(data.token).admin; 
+          if (isAdmin){
+            navigate("/admin"); 
+          } else {
+            navigate("/personal");
+          }
       }
     },
   });

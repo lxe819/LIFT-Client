@@ -11,6 +11,7 @@ import ProductPage from "./pages/internalPages/ProductPage";
 import CartPage from "./pages/internalPages/CartPage";
 import CheckoutPage from "./pages/internalPages/CheckoutPage";
 import PurchaseHistoryPage from "./pages/internalPages/PurchaseHistoryPage";
+import AdminLayout from "./layouts/AdminLayout";
 
 interface CartItem {
   user_id: number;
@@ -46,6 +47,9 @@ function App() {
           <Route path="/personal/history" element={<PurchaseHistoryPage token={token} />} />
           <Route path="/personal/categories/:category_id" element={<CategoryPage />} />
           <Route path="/personal/products/:product_id" element={<ProductPage token={token} />} />
+        </Route>
+        <Route path="/admin" element={<AdminLayout />}>
+          
         </Route>
       </Routes>
     </BrowserRouter>

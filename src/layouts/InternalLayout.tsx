@@ -11,7 +11,7 @@ function InternalLayout({ setToken }: { setToken: Function }) {
     return (
         <>
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark d-flex justify-content-between">
-                <Link to="/" className="navbar-brand ms-3">
+                <Link to="/personal" className="navbar-brand ms-3">
                 LOGO
                 </Link>
                 <div>
