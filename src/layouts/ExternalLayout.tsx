@@ -10,11 +10,11 @@ function ExternalLayout() {
           LOGO
         </Link>
         <div>
-            <Link to="/" className="nav-item px-2">Wrist Wraps</Link>
-            <Link to="/" className="nav-item px-2">Lifting Straps</Link>
-            <Link to="/" className="nav-item px-2">Sleeves</Link>
-            <Link to="/" className="nav-item px-2">Belts</Link>
-            <Link to="/" className="nav-item px-2">Resistance Bands</Link>
+            <Link to="/categories/1" className="nav-item px-2">Wrist Wraps</Link>
+            <Link to="/categories/2" className="nav-item px-2">Lifting Straps</Link>
+            <Link to="/categories/3" className="nav-item px-2">Sleeves</Link>
+            <Link to="/categories/4" className="nav-item px-2">Belts</Link>
+            <Link to="/categories/5" className="nav-item px-2">Resistance Bands</Link>
         </div>
         {/* <div className="collapse navbar-collapse" id="navbarSupportedContent"> */}
             <div className="d-flex align-items-center">

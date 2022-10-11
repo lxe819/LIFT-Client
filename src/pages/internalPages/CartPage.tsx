@@ -1,46 +1,50 @@
 import { useEffect, useState } from "react";
-import { json } from "react-router-dom";
+import { json, useNavigate } from "react-router-dom";
 import parseJwt from "../../models/parseJwt";
 
 interface CartItem {
+  user_id: number;
   cart_id: number;
+  product_id: number;
   product_name: string;
+  product_size: string;
+  stock_qty: number; 
   unit_price: string;
   quantity: number;
-  product_size: string;
-  user_id: number;
-  product_id: number;
   image: string;
-  carted_on: string;
-  last_edit: string;
 }
 
-interface ProductsStock {
-    product_id: number; 
-    product_name: string; 
-    stock_qty: { "S": number; "M": number; "L": number } | { "freeSize": number }
-}
+// interface ProductsStock {
+//     product_id: number; 
+//     product_name: string; 
+//     stock_qty: { "S": number; "M": number; "L": number } | { "freeSize": number }
+// }
 
-const styleSmall = {
-  maxWidth: "60px",
-  maxHeight: "60px",
-  objectFit: "cover",
-};
+// const styleSmall = {
+//   maxWidth: "60px",
+//   maxHeight: "60px",
+//   objectFit: "cover",
+// };
 
 const cartedURL = "http://localhost:5566/cart/";
-const productsURL = "http://localhost:5566/products/"; 
+// const productsURL = "http://localhost:5566/products/"; 
+const purchasesURL = "http://localhost:5566/purchases/"; 
 
-function CartPage({ token }: string) {
+function CartPage({ token, orderHistory, setOrderHistory }: { token: string, orderHistory: CartItem[], setOrderHistory: CartItem[] }) {
   const [cartData, setCartData] = useState<CartItem[]>([]);
   const [render, setRender] = useState<Boolean>(true);
-  const [updateSuccessMessage, setUpdateSuccessMessage] = useState<string>("")
-  const [productsStockData, setProductsStockData] = useState<ProductsStock[]>([]); 
+  const navigate = useNavigate(); 
+//   const [productsStockData, setProductsStockData] = useState<ProductsStock[]>([]); 
 
+
+  if (cartData === undefined){
+    return null; 
+  }
 
 /* ---------------------------------------------------------------
 UPDATE cart item (onChange QTY)
 --------------------------------------------------------------- */
-  const handleSubmit = (e, cartID, productID, size) => {
+  const handleSubmit = (e: any, cartID: number, productID: number, size: string | null) => {
     console.log("qty:", e.target.value);
     console.log("cart_id:", cartID);
     console.log("productID:", productID);
@@ -60,7 +64,7 @@ UPDATE cart item (onChange QTY)
       }),
     })
       .then((response) => response.json())
-      .then((data) => setUpdateSuccessMessage(data));
+      .then((data) => console.log(data));
     setRender(true); 
   };
 
@@ -68,7 +72,7 @@ UPDATE cart item (onChange QTY)
 /* ---------------------------------------------------------------
 DELETE cart item 
 --------------------------------------------------------------- */
-  const handleDelete = (cartID) => {
+  const handleDelete = (cartID: number) => {
     fetch(`http://localhost:5566/cart/${cartID}`, {
       method: "DELETE",
       headers: {
@@ -80,6 +84,43 @@ DELETE cart item
     setRender(true);
   };
 
+
+/* ---------------------------------------------------------------
+CREATE purchase item(s)
+--------------------------------------------------------------- */
+
+const handlePurchase = (cartData: CartItem[]) => {
+
+    setOrderHistory(cartData); 
+
+    cartData.forEach(item => {
+
+        const toPurchase = {
+            name: item.product_name, 
+            price: item.unit_price, 
+            quantity: item.quantity, 
+            size: item.product_size, 
+            user_id: item.user_id, 
+            product_id: item.product_id,
+            image: item.image, 
+            cart_id: item.cart_id, 
+            stock_qty: item.stock_qty
+        }
+
+        fetch(purchasesURL, {
+            method:"POST", 
+            headers: {
+                "Content-Type": "application/json", 
+                Authorization: `Bearer ${token}`
+            }, 
+            body: JSON.stringify(toPurchase)
+        }).then(response => response.json()).then(data => {
+            // setOrderHistory([...orderHistory, data.deletedCartItem]); 
+            console.log("deleted items:", data.deletedCartItem)}); 
+
+        navigate("/personal/checkout"); 
+    })
+}
 
 /* ---------------------------------------------------------------
 FETCH cart data whenever there's DELETE or UPDATE
@@ -96,16 +137,8 @@ FETCH cart data whenever there's DELETE or UPDATE
       .then((response) => response.json())
       .then((data) => setCartData(data.items));
 
-    fetch(productsURL, {
-        headers: {
-            Authorization: `Bearer ${token}`
-        }
-    }).then(response => response.json()).then(data => setProductsStockData(data.products))
-
     setRender(false);
   }, [render]);
-  //? useEffect didn't fetch when DELETE button clicked, requires 2nd time, re-render then item got removed!! 
-    // Working well now (0205)
 
 
 
@@ -119,17 +152,21 @@ FETCH cart data whenever there's DELETE or UPDATE
             <th>Product Information</th>
             <th>Unit Price (S$)</th>
             <th>QTY</th>
-            <th>Subtotal</th>
+            <th>Subtotal (S$)</th>
             <th>Remove from cart</th>
           </tr>
         </thead>
         <tbody>
           {cartData.map((item, index) => (
-            <tr>
+            <tr key={item.cart_id}>
               <td>{index + 1}</td>
               <td className="d-flex flex-row">
                 <div>
-                  <img src={item.image} style={styleSmall} className="me-3" />
+                  <img src={item.image} style={{
+                    maxWidth: "60px",
+                    maxHeight: "60px",
+                    objectFit: "cover",
+                    }} className="me-3" />
                 </div>
                 <div>
                   {item.product_name}
@@ -144,7 +181,7 @@ FETCH cart data whenever there's DELETE or UPDATE
                   key={item.cart_id}
                   defaultValue={item.quantity}
                   min="1"
-                  max={item.product_size ? productsStockData.filter(pdt => pdt.product_id === item.product_id)[0].stock_qty[item.product_size] : productsStockData.filter(pdt => pdt.product_id === item.product_id)[0].stock_qty["freeSize"]}
+                  max={item.stock_qty}
                   onChange={(e) =>
                     handleSubmit(
                       e,
@@ -154,7 +191,6 @@ FETCH cart data whenever there's DELETE or UPDATE
                     )
                   }
                 />
-                {/* {updateSuccessMessage.message} */}
               </td>
               <td>${parseInt(item.unit_price) * item.quantity}</td>
               <td>
@@ -169,6 +205,9 @@ FETCH cart data whenever there's DELETE or UPDATE
           ))}
         </tbody>
       </table>
+      <div className="d-flex flex-row justify-content-end me-5">
+        <button onClick={() => handlePurchase(cartData)} className="btn btn-primary">Checkout my cart</button>
+      </div>
       <h3>You may be interested in:</h3>
     </>
   );

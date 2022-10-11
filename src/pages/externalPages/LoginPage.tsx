@@ -79,7 +79,7 @@ function LoginPage({ setToken }: any) {
                 </div>
             ) : null}
         </div>
-        <button type="submit">Login</button>
+        <button className="btn btn-primary" type="submit">Login</button>
         <Link to="/register">Create a new account</Link>
     </form>
   );

@@ -1,6 +1,13 @@
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 
-function InternalLayout() {
+function InternalLayout({ setToken }) {
+
+    const navigate = useNavigate(); 
+    const handleLogout = () => {
+        setToken(""); 
+        navigate('/'); 
+    }
+
     return (
         <>
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark d-flex justify-content-between">
@@ -15,8 +22,11 @@ function InternalLayout() {
                     <Link to="/personal/categories/5" className="nav-item px-2">Resistance Bands</Link>
                 </div>
                     <div className="d-flex align-items-center">
+                        <Link to="/personal/checkout" className="nav-item px-2">Order History</Link>
+                        <Link to="/personal/history" className="nav-item px-2">Past Purchases</Link>
                         <Link to="/personal/cart" className="nav-item px-2">Cart</Link>
                         <Link to="/" className="nav-item px-2 me-3">Profile</Link>
+                        <button onClick={handleLogout} className="btn btn-primary">Logout</button>
                     </div>
             </nav>
             <Outlet />

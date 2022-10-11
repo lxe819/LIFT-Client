@@ -9,10 +9,25 @@ import { useState } from "react";
 import CategoryPage from "./pages/internalPages/CategoryPage";
 import ProductPage from "./pages/internalPages/ProductPage";
 import CartPage from "./pages/internalPages/CartPage";
+import CheckoutPage from "./pages/internalPages/CheckoutPage";
+import PurchaseHistoryPage from "./pages/internalPages/PurchaseHistoryPage";
+
+interface CartItem {
+  user_id: number;
+  cart_id: number;
+  product_id: number;
+  product_name: string;
+  product_size: string;
+  stock_qty: number; 
+  unit_price: string;
+  quantity: number;
+  image: string;
+}
 
 function App() {
 
   const [token, setToken] = useState<string>(""); 
+  const [orderHistory, setOrderHistory] = useState<CartItem[]>([])
   // const [categoryClicked, setCategoryClicked] = useState<number>(0); 
 
   return (
@@ -22,10 +37,13 @@ function App() {
           <Route index element={<LandingPage />} />
           <Route path="/login" element={<LoginPage setToken={setToken} />} />
           <Route path="/register" element={<RegisterPage setToken={setToken} />} />
+          <Route path="/categories/:category_id" element={<CategoryPage />} />
         </Route>
-        <Route path="/personal" element={<InternalLayout />}>
+        <Route path="/personal" element={<InternalLayout setToken={setToken} />}>
           <Route index element={<Homepage />} />
-          <Route path="/personal/cart" element={<CartPage token={token} />} />
+          <Route path="/personal/cart" element={<CartPage token={token} orderHistory={orderHistory} setOrderHistory={setOrderHistory} />} />
+          <Route path="/personal/checkout" element={<CheckoutPage token={token} orderHistory={orderHistory} />} />
+          <Route path="/personal/history" element={<PurchaseHistoryPage token={token} />} />
           <Route path="/personal/categories/:category_id" element={<CategoryPage />} />
           <Route path="/personal/products/:product_id" element={<ProductPage token={token} />} />
         </Route>
