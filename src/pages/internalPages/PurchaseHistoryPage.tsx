@@ -61,7 +61,7 @@ function PurchaseHistoryPage({ token }: { token: string }){
                             </td>
                             <td>${parseInt(item.unit_price)}</td>
                             <td>{item.quantity}</td>
-                            <td>${item.unit_price * item.quantity}</td>
+                            <td>${parseInt(item.unit_price) * item.quantity}</td>
                             <td>{format(new Date(item.purchased_on), "PPpp")}</td>
                         </tr>
                     ))}

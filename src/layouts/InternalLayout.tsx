@@ -1,6 +1,6 @@
 import { Link, Outlet, useNavigate } from "react-router-dom";
 
-function InternalLayout({ setToken }) {
+function InternalLayout({ setToken }: { setToken: Function }) {
 
     const navigate = useNavigate(); 
     const handleLogout = () => {

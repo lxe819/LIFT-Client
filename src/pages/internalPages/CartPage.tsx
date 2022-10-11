@@ -30,7 +30,7 @@ const cartedURL = "http://localhost:5566/cart/";
 // const productsURL = "http://localhost:5566/products/"; 
 const purchasesURL = "http://localhost:5566/purchases/"; 
 
-function CartPage({ token, orderHistory, setOrderHistory }: { token: string, orderHistory: CartItem[], setOrderHistory: CartItem[] }) {
+function CartPage({ token, orderHistory, setOrderHistory }: { token: string, orderHistory: CartItem[], setOrderHistory: Function }) {
   const [cartData, setCartData] = useState<CartItem[]>([]);
   const [render, setRender] = useState<Boolean>(true);
   const navigate = useNavigate(); 

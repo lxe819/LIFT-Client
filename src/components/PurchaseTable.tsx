@@ -44,7 +44,7 @@ function PurchaseTable({ orderHistory }: {orderHistory: CartItem[]}){
                             </td>
                             <td>${parseInt(item.unit_price)}</td>
                             <td>{item.quantity}</td>
-                            <td>{item.unit_price * item.quantity}</td>
+                            <td>{parseInt(item.unit_price) * item.quantity}</td>
                         </tr>
                     ))}
                 </tbody>
