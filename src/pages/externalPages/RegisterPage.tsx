@@ -6,7 +6,7 @@ YupPassword(Yup);
 
 const url = "http://localhost:5566/users/";
 
-function RegisterPage({ setToken }: any): any {
+function RegisterPage({ setToken }: { setToken: Function}) {
   const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {

@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 
 const url = "http://localhost:5566/login/";
-function LoginPage({ setToken }: any) {
+function LoginPage({ setToken }: { setToken: Function }) {
     const navigate = useNavigate(); 
 
   const formik = useFormik({
