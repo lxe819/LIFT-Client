@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { json, useNavigate } from "react-router-dom";
+import { json, Link, useNavigate } from "react-router-dom";
 import parseJwt from "../../models/parseJwt";
 
 interface CartItem {
@@ -133,6 +133,8 @@ FETCH cart data whenever there's DELETE or UPDATE
   return (
     <>
       <h1>Your Shopping Cart</h1>
+      {cartData.length === 0 ? <h3>There is no cart item.<Link to="/personal" >Shop for items now!</Link></h3> : 
+      <>
       <table className="table">
         <thead className="table-active">
           <tr>
@@ -154,7 +156,7 @@ FETCH cart data whenever there's DELETE or UPDATE
                     maxWidth: "60px",
                     maxHeight: "60px",
                     objectFit: "cover",
-                    }} className="me-3" />
+                  }} className="me-3" />
                 </div>
                 <div>
                   {item.product_name}
@@ -176,16 +178,16 @@ FETCH cart data whenever there's DELETE or UPDATE
                       item.cart_id,
                       item.product_id,
                       item.product_size
-                    )
-                  }
-                />
+                      )
+                    }
+                    />
               </td>
               <td>${parseInt(item.unit_price) * item.quantity}</td>
               <td>
                 <button
                   onClick={() => handleDelete(item.cart_id)}
                   className="btn btn-primary"
-                >
+                  >
                   Remove
                 </button>
               </td>
@@ -196,6 +198,8 @@ FETCH cart data whenever there's DELETE or UPDATE
       <div className="d-flex flex-row justify-content-end me-5">
         <button onClick={() => handlePurchase(cartData)} className="btn btn-primary">Checkout my cart</button>
       </div>
+      </>
+      }
       <h3>You may be interested in:</h3>
     </>
   );

@@ -1,29 +1,50 @@
 import { Link, Outlet, useNavigate } from "react-router-dom";
 
 function ExternalLayout() {
-    const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   return (
     <>
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark d-flex justify-content-between">
-        <Link to="/" className="navbar-brand ms-3">
-          LOGO
-        </Link>
-        <div>
-            <Link to="/categories/1" className="nav-item px-2">Wrist Wraps</Link>
-            <Link to="/categories/2" className="nav-item px-2">Lifting Straps</Link>
-            <Link to="/categories/3" className="nav-item px-2">Sleeves</Link>
-            <Link to="/categories/4" className="nav-item px-2">Belts</Link>
-            <Link to="/categories/5" className="nav-item px-2">Resistance Bands</Link>
+      <div className="navbar navbar-expand-lg navbar-dark bg-dark d-flex justify-content-between">
+        <div className="container p-3">
+          <Link to="/" className="navbar-brand ms-3 fw-bold fs-2">
+            LIFT
+          </Link>
+          <nav className="d-flex">
+            <Link to="/categories/1" className="nav-item px-2 link-light" style={{textDecoration: "none"}}>
+              Wrist Wraps
+            </Link>
+            <Link to="/categories/2" className="nav-item px-2 link-light" style={{textDecoration: "none"}}>
+              Lifting Straps
+            </Link>
+            <Link to="/categories/3" className="nav-item px-2 link-light" style={{textDecoration: "none"}}>
+              Sleeves
+            </Link>
+            <Link to="/categories/4" className="nav-item px-2 link-light" style={{textDecoration: "none"}}>
+              Belts
+            </Link>
+            <Link to="/categories/5" className="nav-item px-2 link-light" style={{textDecoration: "none"}}>
+              Resistance Bands
+            </Link>
+          </nav>
+          <div className="d-flex align-items-center">
+            <button
+              onClick={() => navigate("/login")}
+              type="button"
+              className="btn btn-outline-light px-3 me-2"
+            >
+              Login
+            </button>
+            <button
+              onClick={() => navigate("/register")}
+              type="button"
+              className="btn btn-outline-info me-3"
+            >
+              Sign Up
+            </button>
+          </div>
         </div>
-        {/* <div className="collapse navbar-collapse" id="navbarSupportedContent"> */}
-            <div className="d-flex align-items-center">
-                <button onClick={() => navigate("/login")} type="button" className="btn btn-light px-3 me-2">Login</button>
-                <button onClick={() => navigate("/register")} type="button" className="btn btn-primary me-3">Sign Up</button>
-            </div>
-
-        {/* </div> */}
-      </nav>
+      </div>
       <Outlet />
     </>
   );

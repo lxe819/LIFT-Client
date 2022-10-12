@@ -56,62 +56,79 @@ function RegisterPage({ setToken }: { setToken: Function}) {
   });
 
   return (
-    <>
-      <form onSubmit={formik.handleSubmit}>
-        <div>
-          <label>
-            Username:
-            <input
-              name="username"
-              type="text"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.username}
-            />
-          </label>
-          {formik.touched.username && formik.errors.username ? (
-            <div>{formik.errors.username}</div>
-          ) : null}
-        </div>
+    <div>
+      <div className="container">
+        <div className="row">
+          <div className="col-3"></div>
+          <div className="col-6">
+            <div className="border border-2 rounded" style={{padding: "60px"}}>
+              <h1 className="mb-4">Create an Account</h1>
+              <form onSubmit={formik.handleSubmit}>
+                <div className="mb-3">
+                  <label>
+                    Username:
+                    <input
+                      name="username"
+                      type="text"
+                      className="form-control rounded-pill"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.username}
+                    />
+                  </label>
+                  {formik.touched.username && formik.errors.username ? (
+                    <div>{formik.errors.username}</div>
+                  ) : null}
+                </div>
 
-        <div>
-          <label>
-            Email:
-            <input
-              name="email"
-              type="text"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.email}
-            />
-          </label>
-          {formik.touched.email && formik.errors.email ? (
-            <div>{formik.errors.email}</div>
-          ) : null}
-        </div>
+                <div className="mb-3">
+                  <label>
+                    Email:
+                    <input
+                      name="email"
+                      type="text"
+                      className="form-control rounded-pill"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.email}
+                    />
+                  </label>
+                  {formik.touched.email && formik.errors.email ? (
+                    <div>{formik.errors.email}</div>
+                  ) : null}
+                </div>
 
-        <div>
-          <label>
-            Password:
-            <input
-              name="password"
-              type="password"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.password}
-            />
-          </label>
-          {formik.touched.password && formik.errors.password ? (
-            <div>{formik.errors.password}</div>
-          ) : null}
-        </div>
+                <div className="mb-3">
+                  <label>
+                    Password:
+                    <input
+                      name="password"
+                      type="password"
+                      className="form-control rounded-pill"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.password}
+                    />
+                  </label>
+                  {formik.touched.password && formik.errors.password ? (
+                    <div>{formik.errors.password}</div>
+                  ) : null}
+                </div>
 
-        <button type="submit" className="btn btn-primary">
-          Sign Up
-        </button>
-        <Link to="/login">Back to login</Link>
-      </form>
-    </>
+                <div className="mt-4 mb-3">
+                  <button type="submit" className="btn btn-primary me-3 rounded-pill">
+                    Sign Up
+                  </button>
+                  <Link to="/login">Back to login</Link>
+                </div>
+              </form>
+
+            </div>
+          </div>
+          <div className="col-3"></div>
+        </div>
+      </div>
+    </div>
   );
 }
 

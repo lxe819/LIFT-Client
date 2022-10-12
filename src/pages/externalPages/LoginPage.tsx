@@ -51,44 +51,68 @@ function LoginPage({ setToken }: { setToken: Function }) {
   });
 
   return (
-    <form onSubmit={formik.handleSubmit}>
-        <div>
-            <label>
-                Username
-                <input
-                name="username"
-                type="text"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.username}
-                />
-            </label>
-            {formik.touched.username && formik.errors.username ? (
-                <div>
-                {formik.errors.username}
-                </div>
-            ) : null}
+    <div style={{paddingTop: "150px", paddingBottom: "150px"}}>
+      <div className="container">
+        <div className="row">
+          <div className="col-4"></div>
+          <div className="col-4">
+            <div className="border border-2 rounded" style={{padding: "60px"}}>
+              <div>
+                <h1 className="mb-4">Login</h1>
+                <form onSubmit={formik.handleSubmit}>
+                    <div className="mb-3">
+                        <label>
+                            {/* Username:  */}
+                            <input
+                            name="username"
+                            type="text"
+                            className="form-control rounded-pill"
+                            placeholder="Username"
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            value={formik.values.username}
+                            />
+                        </label>
+                        {formik.touched.username && formik.errors.username ? (
+                          <div>
+                            {formik.errors.username}
+                            </div>
+                        ) : null}
+                    </div>
+                    <div className="mb-3">
+                        <label>
+                            {/* Password:  */}
+                            <input
+                            name="password"
+                            type="password"
+                            className="form-control rounded-pill"
+                            placeholder="Password"
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            value={formik.values.password}
+                            />
+                        </label>
+                        {formik.touched.password && formik.errors.password ? (
+                          <div>
+                            {formik.errors.password}
+                            </div>
+                        ) : null}
+                    </div>
+                    <div className="mt-4 mb-3">
+                      <button className="btn btn-primary me-3 rounded-pill" type="submit">Login</button>
+                      <Link to="/register" className="mt-5">Create a new account</Link>
+                    </div>
+                </form>
+
+              </div>
+            </div>
+
+          </div>
+          <div className="col-4"></div>
         </div>
-        <div>
-            <label>
-                Password
-                <input
-                name="password"
-                type="password"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.password}
-                />
-            </label>
-            {formik.touched.password && formik.errors.password ? (
-                <div>
-                {formik.errors.password}
-                </div>
-            ) : null}
-        </div>
-        <button className="btn btn-primary" type="submit">Login</button>
-        <Link to="/register">Create a new account</Link>
-    </form>
+      </div>
+
+    </div>
   );
 }
 

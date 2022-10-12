@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import PurchaseTable from "../../components/PurchaseTable";
+import InterestPdts from "../../components/InterestPdts";
 
 interface CartItem {
     user_id: number;
@@ -64,7 +64,7 @@ function CheckoutPage({ token, orderHistory }: { token: string, orderHistory: Ca
             <div className="d-flex flex-row justify-content-end me-5">
                 <button onClick={() => navigate("/personal")} className="btn btn-primary">Back to homepage</button>
             </div>
-            <h3>You may be interested in</h3>
+            <InterestPdts token={token} />
         </>
     )
 }

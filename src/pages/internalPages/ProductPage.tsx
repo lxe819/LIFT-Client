@@ -24,10 +24,13 @@ function ProductPage({ token }: { token: string }) {
   const [mainDisplay, setMainDisplay] = useState<string>("");
   const [selectValue, setSelectValue] = useState<string>("");
   const [selectMessage, setSelectMessage] = useState(false);
+  const [wishItemExist, setWishItemExist] = useState<boolean>(false); 
   // const [stockQty, setStockQty] = useState<Stocks[]>([]); 
   // const [updatedValues, setUpdatedValues] = useState({});
   const fetchProductURL = `${SERVER}/products/product/${product_id}`;
   const postCartItemURL = `${SERVER}/cart`;
+  const postWishItemURL = `${SERVER}/wishlist/user`; 
+  const checkWishItemURL = `${SERVER}/wishlist/user/${product_id}`; 
 
   const userID = parseJwt(token).user_id;
   //   console.log(userID);
@@ -35,7 +38,6 @@ function ProductPage({ token }: { token: string }) {
   /* ---------------------------------------------------------------
 Set Main Image Display 
 --------------------------------------------------------------- */
-  //! By default -> Should display the first image, not working.
   const handleClick = (e: any) => {
     setMainDisplay(e.target.currentSrc);
   };
@@ -52,7 +54,18 @@ Set Main Image Display
         setMainDisplay(data.item?.[0]?.images?.[0])
       });
 
-  }, []);
+    fetch(checkWishItemURL, {
+      headers: {
+        "Authorization": `Bearer ${token}`
+      }, 
+    }).then(res => res.json()).then(data => {
+      console.log(data.message);
+      if (data.message === "Wish item exists"){
+        setWishItemExist(true); 
+      }
+    }); 
+
+  }, [wishItemExist]);
 
 
   /* ---------------------------------------------------------------
@@ -62,6 +75,38 @@ Retrieve selected value for dropdown (Product Size)
     setSelectValue(e.target.value);
     console.log("Dropdown selected", e.target.value);
   };
+
+
+/* ---------------------------------------------------------------
+ADD item to Wishlist
+--------------------------------------------------------------- */
+  const handleAddWishItem = (product_id, user_id) => {
+    const wish_details = {product_id: product_id, user_id: user_id}; 
+
+    fetch(postWishItemURL, {
+      method: "POST", 
+      headers: {
+        "Content-Type": "application/json", 
+        "Authorization": `Bearer ${token}`
+      }, 
+      body: JSON.stringify(wish_details)
+    }).then(res => res.json()).then(data => console.log(data.wishItem)); 
+
+    setWishItemExist(true);
+  }
+
+/* ---------------------------------------------------------------
+REMOVE item from Wishlist
+--------------------------------------------------------------- */
+const handleRemoveWishItem = () => {
+  fetch(checkWishItemURL, {
+    method: "DELETE", 
+    headers: {
+      "Authorization": `Bearer ${token}`
+    }
+  }).then(res => res.json()).then(data => console.log(data)); 
+  setWishItemExist(false); 
+}
 
 
 /* ---------------------------------------------------------------
@@ -178,7 +223,7 @@ Formik to validate product quantity selection
         <div className="d-flex flex-column">
           <h1 className="mt-5">{singleProduct?.[0]?.product_name}</h1>
           <h6>{singleProduct?.[0]?.short_desc}</h6>
-          <h3 className="mb-3">S${singleProduct?.[0]?.unit_price}</h3>
+          <h3 className="mb-3">Price: S${singleProduct?.[0]?.unit_price}</h3>
 
           <form onSubmit={formik.handleSubmit}>
             {singleProduct?.[0]?.sizing && (
@@ -212,7 +257,6 @@ Formik to validate product quantity selection
                   name="quantity"
                   type="number"
                   min="1"
-                  //   max={singleProduct?.stock} --> //* qty constraint is at the top with Yup validation 
                   max={ selectValue
                     ? singleProduct.filter(item => item.stock_size === selectValue)?.[0]?.stock_qty
                     : singleProduct?.[0]?.stock_qty}
@@ -239,6 +283,11 @@ Formik to validate product quantity selection
               ADD TO CART
             </button>
           </form>
+          {wishItemExist ? (
+            <button onClick={handleRemoveWishItem} className="btn btn-danger">REMOVE FROM WISHLIST</button>
+            ) : (
+              <button onClick={() => handleAddWishItem(singleProduct?.[0].product_id, userID)} className="btn btn-light">ADD TO WISHLIST</button>
+          )}
         </div>
       </div>
     </>
