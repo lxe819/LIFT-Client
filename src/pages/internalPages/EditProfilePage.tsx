@@ -10,6 +10,7 @@ function EditProfilePage() {
       email: "",
       gender: "",
       gymExperience: "", 
+      gymSports: "",
     },
     validationSchema: Yup.object({
       username: Yup.string()

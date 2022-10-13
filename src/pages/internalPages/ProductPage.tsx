@@ -80,7 +80,7 @@ Retrieve selected value for dropdown (Product Size)
 /* ---------------------------------------------------------------
 ADD item to Wishlist
 --------------------------------------------------------------- */
-  const handleAddWishItem = (product_id, user_id) => {
+  const handleAddWishItem = (product_id: number, user_id: number) => {
     const wish_details = {product_id: product_id, user_id: user_id}; 
 
     fetch(postWishItemURL, {
