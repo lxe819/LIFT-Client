@@ -11,9 +11,10 @@ interface Products {
   sizing: string[];
   created_on: string;
   category_id: number;
+  category_name: string; 
 }
 
-function CategoryPage() {
+function CategoryPage({ token }: { token: string }) {
   const [categoryProducts, setCategoryProducts] = useState<Products[]>();
   const { category_id } = useParams();
   const navigate = useNavigate();
@@ -27,28 +28,43 @@ function CategoryPage() {
   }, [category_id]);
 
   return (
-    <div className="d-flex flex-row">
-      {categoryProducts?.map((product) => {
-        return (
-          <div
-            onClick={() => navigate(`/personal/products/${product.product_id}`)}
-            key={product.product_id}
-            className="m-5"
-          >
-            <img
-              src={product.images[0]}
-              style={{
-                maxWidth: "200px",
-                maxHeight: "200px",
-                objectFit: "cover",
-              }}
-            />
-            <h3>{product.product_name}</h3>
-            <h5>S${parseInt(product.unit_price)}</h5>
-          </div>
-        );
-      })}
+    <>
+    <div style={{padding: "60px"}}>
+      <div className="mx-5">
+        <div className="container">
+          <h1 className="mb-4">{categoryProducts?.[0].category_name}</h1>
+        <div className="row row-cols-4">
+          {categoryProducts?.map((product) => {
+            return (
+              <div
+                onClick={() => navigate(`/personal/products/${product.product_id}`)}
+                key={product.product_id}
+                className="col p-5 border me-3 mb-4 bg-white"
+                style={{ borderRadius: "8px" }}
+              >
+                <img
+                  src={product.images[0]}
+                  style={{
+                    minHeight: "220px",
+                    maxHeight: "220px", 
+                    maxWidth: "220px",
+                    objectFit: "cover",
+                    marginBottom: "20px",
+                  }}
+                />
+                <div className="mt-4">
+                <h4>{product.product_name}</h4>
+                <h6>S${parseInt(product.unit_price)}</h6>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+</div>
+      </div>
+
     </div>
+    </>
   );
 }
 

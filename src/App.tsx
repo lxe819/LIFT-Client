@@ -22,6 +22,8 @@ import AdminProductEdit from "./pages/adminPages/AdminProductEdit";
 import Wishlist from "./pages/internalPages/Wishlist";
 import ProfilePage from "./pages/internalPages/ProfilePage";
 import EditProfilePage from "./pages/internalPages/EditProfilePage";
+import ErrorPage from "./pages/externalPages/ErrorPage";
+import AccessDenied from "./pages/externalPages/AccessDenied";
 
 interface CartItem {
   user_id: number;
@@ -48,17 +50,19 @@ function App() {
           <Route index element={<LandingPage />} />
           <Route path="/login" element={<LoginPage setToken={setToken} />} />
           <Route path="/register" element={<RegisterPage setToken={setToken} />} />
-          <Route path="/categories/:category_id" element={<CategoryPage />} />
+          <Route path="/categories/:category_id" element={<CategoryPage token={token} />} />
+          <Route path="/error" element={<ErrorPage />} />
+          <Route path="/denied" element={<AccessDenied />} />
         </Route>
         <Route path="/personal" element={<InternalLayout setToken={setToken} />}>
-          <Route index element={<Homepage />} />
+          <Route index element={<Homepage token={token} />} />
           <Route path="/personal/profile" element={<ProfilePage token={token} />} />
-          <Route path="/personal/profile/edit" element={<EditProfilePage />} />
+          <Route path="/personal/profile/edit" element={<EditProfilePage token={token} />} />
           <Route path="/personal/cart" element={<CartPage token={token} orderHistory={orderHistory} setOrderHistory={setOrderHistory} />} />
           <Route path="/personal/checkout" element={<CheckoutPage token={token} orderHistory={orderHistory} />} />
           <Route path="/personal/history" element={<PurchaseHistoryPage token={token} />} />
           <Route path="/personal/wishlist" element={<Wishlist token={token} />} />
-          <Route path="/personal/categories/:category_id" element={<CategoryPage />} />
+          <Route path="/personal/categories/:category_id" element={<CategoryPage token={token} />} />
           <Route path="/personal/products/:product_id" element={<ProductPage token={token} />} />
         </Route>
         <Route path="/admin" element={<AdminLayout token={token} />}>

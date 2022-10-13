@@ -14,6 +14,8 @@ function RegisterPage({ setToken }: { setToken: Function}) {
       username: "",
       email: "",
       password: "",
+      gender: "", 
+      gymExperience: ""
     },
     validationSchema: Yup.object({
       username: Yup.string()
@@ -27,6 +29,8 @@ function RegisterPage({ setToken }: { setToken: Function}) {
         .minUppercase(1, "Password must contain at least 1 upper-case letter")
         .minNumbers(1, "Password must contain at least 1 number")
         .minSymbols(1, "Password must contain at least 1 special character"),
+      gender: Yup.string(), 
+      gymExperience: Yup.string()
     }),
     onSubmit: async (values) => {
       alert(JSON.stringify(values, null, 2));
@@ -118,6 +122,37 @@ function RegisterPage({ setToken }: { setToken: Function}) {
                   </label>
                   {formik.touched.password && formik.errors.password ? (
                     <div>{formik.errors.password}</div>
+                  ) : null}
+                </div>
+
+                <div className="mb-3 form-group">
+                  <label>
+                    Gender:
+            <select className="form-control" name="gender" onChange={formik.handleChange} value={formik.values.gender}> 
+              <option value="">Please select option</option>
+              <option value="F">Female</option>
+              <option value="M">Male</option>
+            </select>
+                  </label>
+                  {formik.touched.gender && formik.errors.gender ? (
+                    <div>{formik.errors.gender}</div>
+                  ) : null}
+                </div>
+
+                <div className="mb-3 form-group">
+                  <label>
+                  Gym Experience:
+            <select className="form-control" name="gymExperience" onChange={formik.handleChange} value={formik.values.gymExperience}>
+            <option value="">Please select option</option>
+              <option value="1">Beginner</option>
+              <option value="2">
+                Intermediate
+              </option>
+              <option value="3">Advanced</option>
+            </select>
+                  </label>
+                  {formik.touched.gymExperience && formik.errors.gymExperience ? (
+                    <div>{formik.errors.gymExperience}</div>
                   ) : null}
                 </div>
 

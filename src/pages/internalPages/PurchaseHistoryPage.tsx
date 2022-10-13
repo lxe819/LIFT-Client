@@ -18,6 +18,13 @@ const purchasesURL = `${SERVER}/purchases/`;
 function PurchaseHistoryPage({ token }: { token: string }){
 
     const [allPurchases, setAllPurchases] = useState<Purchases[]>([])
+
+    // Add 8 hours to timestamp
+    const addEightHours = (date = new Date()) => {
+        date.setTime(date.getTime() + 8 * 60 * 60 * 1000); 
+        return date;
+    }; 
+    // console.log(addEightHours());
     
     useEffect(() => {
         fetch(purchasesURL, {
@@ -29,44 +36,51 @@ function PurchaseHistoryPage({ token }: { token: string }){
 
     return (
         <>
-            <h1>Past Purchases</h1>
-            <table className="table">
-                <thead className="table-active">
-                    <tr>
-                        <th>S/N</th>
-                        <th>Product Information</th>
-                        <th>Unit Price (S$)</th>
-                        <th>QTY</th>
-                        <th>Subtotal (S$)</th>
-                        <th>Purchased on</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {allPurchases.map((item, index) => (
-                        <tr key={item.purchase_id}>
-                            <td>{index + 1}</td>
-                            <td className="d-flex flex-row">
-                                <div>
-                                <img src={item.image} style={{
-                                    maxWidth: "60px",
-                                    maxHeight: "60px",
-                                    objectFit: "cover",
-                                    }} className="me-3" />
-                                </div>
-                                <div>
-                                {item.product_name}
-                                <br />
-                                <span>{item.product_size}</span>
-                                </div>
-                            </td>
-                            <td>${parseInt(item.unit_price)}</td>
-                            <td>{item.quantity}</td>
-                            <td>${parseInt(item.unit_price) * item.quantity}</td>
-                            <td>{format(new Date(item.purchased_on), "PPpp")}</td>
+          <div style={{ padding: "60px" }}>
+            <div className="mx-5">
+                <h1 className="mb-4 fw-bold">Past Purchases</h1>
+                <table className="table">
+                    <thead className="table-light">
+                        <tr>
+                            <th>S/N</th>
+                            <th>Product Information</th>
+                            <th>Unit Price (S$)</th>
+                            <th>QTY</th>
+                            <th>Subtotal (S$)</th>
+                            <th>Purchased on</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {allPurchases.map((item, index) => (
+                            <tr key={item.purchase_id}>
+                                <td>{index + 1}</td>
+                                <td className="d-flex flex-row">
+                                    <div className="me-2">
+                                    <img src={item.image} style={{
+                                        maxWidth: "60px",
+                                        maxHeight: "60px",
+                                        objectFit: "cover",
+                                        }} className="me-3" />
+                                    </div>
+                                    <div>
+                                    {item.product_name}
+                                    <br />
+                                    <span>{item.product_size}</span>
+                                    </div>
+                                </td>
+                                <td>${parseInt(item.unit_price)}</td>
+                                <td>{item.quantity}</td>
+                                <td>${parseInt(item.unit_price) * item.quantity}</td>
+                                <td>{format(new Date(addEightHours(new Date(item.purchased_on))), "PPpp")}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+
+
         </>
     )
 }; 
