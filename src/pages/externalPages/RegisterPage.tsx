@@ -28,7 +28,7 @@ function RegisterPage({ setToken }: { setToken: Function}) {
         .minLowercase(1, "Password must contain at least 1 lower-case letter")
         .minUppercase(1, "Password must contain at least 1 upper-case letter")
         .minNumbers(1, "Password must contain at least 1 number")
-        .minSymbols(1, "Password must contain at least 1 special character"),
+        .minSymbols(1, "Password must contain at least 1 special character").required("*Required"),
       gender: Yup.string(), 
       gymExperience: Yup.string()
     }),
