@@ -56,7 +56,7 @@ function LoginPage({ setToken }: { setToken: Function }) {
         <div className="row">
           <div className="col-4"></div>
           <div className="col-4">
-            <div className="border border-2 rounded" style={{padding: "60px"}}>
+            <div className="border border-0.5 rounded" style={{padding: "60px"}}>
               <div>
                 <h1 className="mb-4">Login</h1>
                 <form onSubmit={formik.handleSubmit}>
@@ -66,7 +66,8 @@ function LoginPage({ setToken }: { setToken: Function }) {
                             <input
                             name="username"
                             type="text"
-                            className="form-control rounded-pill"
+                            className="form-control"
+                            style={{paddingLeft: "15px", backgroundColor: "rgb(244, 245, 249)"}}
                             placeholder="Username"
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
@@ -85,7 +86,8 @@ function LoginPage({ setToken }: { setToken: Function }) {
                             <input
                             name="password"
                             type="password"
-                            className="form-control rounded-pill"
+                            className="form-control"
+                            style={{paddingLeft: "15px", backgroundColor: "rgb(244, 245, 249)"}}
                             placeholder="Password"
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
@@ -98,8 +100,8 @@ function LoginPage({ setToken }: { setToken: Function }) {
                             </div>
                         ) : null}
                     </div>
-                    <div className="mt-4 mb-3">
-                      <button className="btn btn-primary me-3 rounded-pill" type="submit">Login</button>
+                    <div className="mb-3" style={{marginTop: "36px"}}>
+                      <button className="btn btn-primary me-3 px-4" type="submit">Login</button>
                       <Link to="/register" className="mt-5">Create a new account</Link>
                     </div>
                 </form>

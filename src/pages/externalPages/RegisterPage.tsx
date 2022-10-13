@@ -56,21 +56,23 @@ function RegisterPage({ setToken }: { setToken: Function}) {
   });
 
   return (
-    <div>
+    <div style={{paddingTop: "150px", paddingBottom: "150px"}}>
       <div className="container">
         <div className="row">
           <div className="col-3"></div>
-          <div className="col-6">
-            <div className="border border-2 rounded" style={{padding: "60px"}}>
+          <div className="col-5">
+            <div className="border border-0.5 rounded" style={{padding: "60px", paddingLeft: "90px"}}>
               <h1 className="mb-4">Create an Account</h1>
               <form onSubmit={formik.handleSubmit}>
                 <div className="mb-3">
                   <label>
-                    Username:
+                    {/* Username: */}
                     <input
                       name="username"
                       type="text"
-                      className="form-control rounded-pill"
+                      placeholder="Username"
+                      className="form-control"
+                      style={{paddingLeft: "15px", backgroundColor: "rgb(244, 245, 249)"}}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       value={formik.values.username}
@@ -83,11 +85,13 @@ function RegisterPage({ setToken }: { setToken: Function}) {
 
                 <div className="mb-3">
                   <label>
-                    Email:
+                    {/* Email: */}
                     <input
                       name="email"
                       type="text"
-                      className="form-control rounded-pill"
+                      placeholder="Email"
+                      className="form-control"
+                      style={{paddingLeft: "15px", backgroundColor: "rgb(244, 245, 249)"}}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       value={formik.values.email}
@@ -98,13 +102,15 @@ function RegisterPage({ setToken }: { setToken: Function}) {
                   ) : null}
                 </div>
 
-                <div className="mb-3">
+                <div className="mb-3 form-group">
                   <label>
-                    Password:
+                    {/* Password: */}
                     <input
                       name="password"
                       type="password"
-                      className="form-control rounded-pill"
+                      placeholder="Password"
+                      className="form-control"
+                      style={{paddingLeft: "15px", backgroundColor: "rgb(244, 245, 249)"}}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       value={formik.values.password}
@@ -115,8 +121,8 @@ function RegisterPage({ setToken }: { setToken: Function}) {
                   ) : null}
                 </div>
 
-                <div className="mt-4 mb-3">
-                  <button type="submit" className="btn btn-primary me-3 rounded-pill">
+                <div className="mb-3" style={{marginTop: "36px"}}>
+                  <button type="submit" className="btn btn-primary me-3 px-4">
                     Sign Up
                   </button>
                   <Link to="/login">Back to login</Link>

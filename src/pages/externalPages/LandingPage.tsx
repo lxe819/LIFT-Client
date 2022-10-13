@@ -1,10 +1,28 @@
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+
+
+interface CategoryItem {
+    category_id: number; 
+    category_name: string; 
+    image: string; 
+}
 
 const background1 = "https://cdn.shopify.com/s/files/1/1876/4703/articles/shutterstock_773647054_75791976-9fc3-4e09-a2e8-94fc800507a2_1000x.jpg?v=1620580258"; 
 const background2 = "https://myzone-strengtheory.netdna-ssl.com/wp-content/uploads/2016/03/DSC09145.jpg";
 const background3 = "https://blog.thewodlife.com.au/wp-content/uploads/2021/04/female-athlete-with-barbell-on-back-1.png";
 
+const SERVER = import.meta.env.VITE_SERVER
+const categoriesURL = `${SERVER}/categories`; 
+
 function LandingPage() {
+
+    const [categoriesData, setCategoriesData] = useState<CategoryItem[]>([])
+
+    useEffect(() => {
+        fetch(categoriesURL).then(res => res.json()).then(data => setCategoriesData(data.categories))
+    }, [])
+
     const navigate = useNavigate(); 
 
     return(
@@ -17,7 +35,6 @@ function LandingPage() {
                 </div>
                 <div className="carousel-inner">
                     <div className="carousel-item active" style={{backgroundImage: `url(${background1})`, minHeight: "768.875px", backgroundSize: "cover"}}>
-                        {/* <img src="https://cdn.shopify.com/s/files/1/1876/4703/articles/shutterstock_773647054_75791976-9fc3-4e09-a2e8-94fc800507a2_1000x.jpg?v=1620580258" className="d-block w-100" /> */}
                         <div className="container" style={{gridTemplateRows: "minmax(152px, auto) minmax(216px, auto) minmax(16px, auto) minmax(97px, auto) minmax(31px, auto) minmax(51px, auto) 1fr", gridTemplateColumns: "8.49673% 12.6634% 19.3627% 8.49673% 50.9804%" }} >
                             <div className="row p-5" style={{gridRow: "2/3", marginTop: "70px"}}>
                                 <div className="col-3" style={{gridColumn: "2/5"}}>
@@ -59,6 +76,21 @@ function LandingPage() {
                     <span className="carousel-control-next-icon" aria-hidden="true"></span>
                     <span className="visually-hidden">Next</span>
                 </button>
+            </div>
+            <div style={{padding: "60px"}}>
+                <div className="mx-5" style={{}}>
+                    <h2 className="mb-4"><span className="text-primary">Popular</span> Categories</h2>
+                    <div className="d-flex flex-row">
+                        {categoriesData.map(cat => (
+                            <Link to={`/categories/${cat.category_id}`} className="link-dark" style={{textDecoration: "none"}}>
+                            <div className="me-3">
+                                <img src={cat.image} style={{minHeight: "240px", maxWidth:"240px", objectFit: "cover", marginBottom: "20px"}} />
+                                <h5 className="text-center text-uppercase fw-bold">{cat.category_name}</h5>
+                            </div>
+                        </Link>
+                        ))}
+                    </div>
+                </div>
             </div>
         </>
     )
