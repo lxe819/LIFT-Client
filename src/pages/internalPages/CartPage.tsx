@@ -284,6 +284,7 @@ Calculate Cart Total
                   <h4 className="mb-3 mt-3">Mode of Payment</h4>
                   <div>                  
                     <select name="payment" className="form-control me-2">
+                    <option value="">Choose payment mode</option>
                     <option value="bank">Direct Bank Transfer</option>
                     <option value="paypal">Paypal</option>
                     <option value="cash">Cash</option>

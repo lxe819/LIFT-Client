@@ -257,6 +257,7 @@ Formik to validate product quantity selection
                             value={selectValue}
                             required
                           >
+                            <option value="">Select size</option>
                             {singleProduct?.[0]?.sizing.map((size, index) => (
                               <option key={index} value={size}>
                                 {size}

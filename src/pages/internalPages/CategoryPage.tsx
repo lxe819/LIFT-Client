@@ -37,7 +37,7 @@ function CategoryPage({ token }: { token: string }) {
           {categoryProducts?.map((product) => {
             return (
               <div
-                onClick={() => navigate(`/personal/products/${product.product_id}`)}
+                onClick={() => (token ? navigate(`/personal/products/${product.product_id}`) : navigate(`/denied`)) }
                 key={product.product_id}
                 className="col p-5 border me-3 mb-4 bg-white"
                 style={{ borderRadius: "8px" }}
