@@ -18,7 +18,7 @@ function LoginPage({ setToken }: { setToken: Function }) {
       password: Yup.string().required("*Required"),
     }),
     onSubmit: async (values) => {
-      alert(JSON.stringify(values, null, 2));
+      // alert(JSON.stringify(values, null, 2));
 
       const res = await fetch(url, {
         method: "POST",

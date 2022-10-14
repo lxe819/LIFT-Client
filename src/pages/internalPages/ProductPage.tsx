@@ -149,7 +149,7 @@ Formik to validate product quantity selection
           product_id: product_id,
           image: singleProduct[0].images[0],
         };
-        alert(JSON.stringify(updatedValues, null, 2));
+        // alert(JSON.stringify(updatedValues, null, 2));
 
         /* ---------------------------------------------------------------
         Create (free-size) cart item via POST method
@@ -178,7 +178,7 @@ Formik to validate product quantity selection
           product_id: product_id,
           image: singleProduct[0].images[0],
         };
-        alert(JSON.stringify(updatedValues, null, 2));
+        // alert(JSON.stringify(updatedValues, null, 2));
 
         /* ---------------------------------------------------------------
         Create (with sizes) cart item via POST method
