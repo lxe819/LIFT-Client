@@ -53,7 +53,7 @@ function Homepage({ token }: { token: string }) {
         <h1 className="fw-bold text-center">
           Welcome <span className="text-primary">{username}</span>, <br />
           Here's our{" "}
-          <span className="text-primary">Recommendations For You</span>
+          <span className="text-primary">recommendations for you</span>
         </h1>
       </div>
       <InterestPdts token={token} />

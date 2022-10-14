@@ -33,7 +33,7 @@ function RegisterPage({ setToken }: { setToken: Function}) {
       gymExperience: Yup.string()
     }),
     onSubmit: async (values) => {
-      // alert(JSON.stringify(values, null, 2));
+      alert(JSON.stringify(values, null, 2));
 
       const res = await fetch(url, {
         method: "POST",

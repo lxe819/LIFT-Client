@@ -39,7 +39,7 @@ function ProfilePage({ token }: { token: string }) {
     })
       .then((res) => res.json())
       .then((data) => setUserDetails(data[0]));
-  });
+  }, []);
 
   return (
     <>

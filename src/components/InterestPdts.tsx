@@ -26,7 +26,7 @@ function InterestPdts({ token }: { token: string }) {
     })
       .then((res) => res.json())
       .then((data) => setInterestPdts(data.productsOfInterest));
-  });
+  }, []);
 
   return (
     <>

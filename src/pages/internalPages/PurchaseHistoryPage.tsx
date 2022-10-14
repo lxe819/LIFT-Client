@@ -32,7 +32,7 @@ function PurchaseHistoryPage({ token }: { token: string }){
                 Authorization: `Bearer ${token}`
             }, 
         }).then(response => response.json()).then(data => setAllPurchases(data.purchases))
-    })
+    }, [])
 
     return (
         <>
