@@ -51,10 +51,10 @@ function EditProfilePage({ token }: { token: string }) {
       // gymSports: Yup.string(),
     }),
     onSubmit: async (values) => {
-      alert(JSON.stringify(values, null, 2));
+      // alert(JSON.stringify(values, null, 2));
 
       fetch(fetchUserURL, {
-        method: "POST",
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -62,7 +62,8 @@ function EditProfilePage({ token }: { token: string }) {
         body: JSON.stringify(values),
       })
         .then((res) => res.json())
-        .then((data) => console.log(data.message));
+        .then((data) => alert(data.message));
+
 
       // const res = await fetch(fetchUserURL, {
       //   method: "POST",

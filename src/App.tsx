@@ -49,7 +49,7 @@ function App() {
         <Route path="/" element={<ExternalLayout />}>
           <Route index element={<LandingPage />} />
           <Route path="/login" element={<LoginPage setToken={setToken} />} />
-          <Route path="/register" element={<RegisterPage setToken={setToken} />} />
+          <Route path="/register" element={<RegisterPage setToken={setToken} token={token} />} />
           <Route path="/categories/:category_id" element={<CategoryPage token={token} />} />
           <Route path="/error" element={<ErrorPage />} />
           <Route path="/denied" element={<AccessDenied />} />
